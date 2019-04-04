@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -24,6 +24,7 @@ import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonString;
 import javax.json.JsonValue;
+import javax.json.NumberStrategy;
 import javax.json.stream.JsonGenerationException;
 import javax.json.stream.JsonGenerator;
 import java.io.IOException;
@@ -291,7 +292,13 @@ class JsonGeneratorImpl implements JsonGenerator {
                 break;
             case NUMBER:
                 JsonNumber number = (JsonNumber)value;
-                writeValue(number.toString());
+                if (number.isIEEE754Compliant()) {
+                    writeValue(number.toString());
+                } else if (number.isIntegral()) {
+                    numberStrategy.write(number.bigIntegerValue());
+                } else {
+                    numberStrategy.write(number.bigDecimalValue());
+                }
                 popFieldContext();
                 break;
             case TRUE:
@@ -364,8 +371,16 @@ class JsonGeneratorImpl implements JsonGenerator {
                 write(name, str.getString());
                 break;
             case NUMBER:
+                writeKey(name);
                 JsonNumber number = (JsonNumber)value;
-                writeValue(name, number.toString());
+                if (number.isIEEE754Compliant()) {
+                    writeValue(number.toString());
+                } else if (number.isIntegral()) {
+                    numberStrategy.write(number.bigIntegerValue());
+                } else {
+                    numberStrategy.write(number.bigDecimalValue());
+                }
+                popFieldContext();
                 break;
             case TRUE:
                 write(name, true);

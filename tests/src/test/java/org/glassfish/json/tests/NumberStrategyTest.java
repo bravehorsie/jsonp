@@ -17,7 +17,7 @@
 package org.glassfish.json.tests;
 
 import org.glassfish.json.BigNumberUtil;
-import org.glassfish.json.NumberStrategy;
+import javax.json.NumberStrategy;
 import org.junit.Test;
 
 import javax.json.Json;
@@ -162,7 +162,7 @@ public class NumberStrategyTest {
     @Test
     public void jsonWriterJsonStringTest() {
         //Expect only types of Long and bigger to be serialized as JSON string
-        String expectedJson = "{\"writeByteKeyAndValue\":127,\"writeShortKeyAndValue\":32767,\"writeIntegerKeyAndValue\":2147483647,\"writeLongInRangeKeyAndValue\":10,\"writeLongOutOfRangeKeyAndValue\":9223372036854775807,\"writeBigDecimalInRangeKeyAndValue\":10,\"writeBigDecimalOutOfRangeKeyAndValue\":9223372036854775807,\"writeBigIntegerInRangeKeyAndValue\":10,\"writeBigIntegerOutOfRangeKeyAndValue\":9223372036854775807}";
+        String expectedJson = "{\"writeByteKeyAndValue\":127,\"writeShortKeyAndValue\":32767,\"writeIntegerKeyAndValue\":2147483647,\"writeLongInRangeKeyAndValue\":\"10\",\"writeLongOutOfRangeKeyAndValue\":\"9223372036854775807\",\"writeBigDecimalInRangeKeyAndValue\":\"10\",\"writeBigDecimalOutOfRangeKeyAndValue\":\"9223372036854775807\",\"writeBigIntegerInRangeKeyAndValue\":\"10\",\"writeBigIntegerOutOfRangeKeyAndValue\":\"9223372036854775807\"}";
         testJsonWriter(NumberStrategy.JSON_STRING, expectedJson);
     }
 
@@ -176,7 +176,7 @@ public class NumberStrategyTest {
     @Test
     public void jsonWriterAdaptiveTest() {
         //Expect only values out of IEEE754 64bit be serialized as JSON string
-        String expectedJson = "{\"writeByteKeyAndValue\":127,\"writeShortKeyAndValue\":32767,\"writeIntegerKeyAndValue\":2147483647,\"writeLongInRangeKeyAndValue\":10,\"writeLongOutOfRangeKeyAndValue\":9223372036854775807,\"writeBigDecimalInRangeKeyAndValue\":10,\"writeBigDecimalOutOfRangeKeyAndValue\":9223372036854775807,\"writeBigIntegerInRangeKeyAndValue\":10,\"writeBigIntegerOutOfRangeKeyAndValue\":9223372036854775807}";
+        String expectedJson = "{\"writeByteKeyAndValue\":127,\"writeShortKeyAndValue\":32767,\"writeIntegerKeyAndValue\":2147483647,\"writeLongInRangeKeyAndValue\":10,\"writeLongOutOfRangeKeyAndValue\":\"9223372036854775807\",\"writeBigDecimalInRangeKeyAndValue\":10,\"writeBigDecimalOutOfRangeKeyAndValue\":\"9223372036854775807\",\"writeBigIntegerInRangeKeyAndValue\":10,\"writeBigIntegerOutOfRangeKeyAndValue\":\"9223372036854775807\"}";
         testJsonWriter(NumberStrategy.ADAPTIVE, expectedJson);
     }
 

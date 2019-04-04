@@ -151,6 +151,16 @@ public interface JsonNumber extends JsonValue {
     }
 
     /**
+     * Check if underlying java can contain values outside of IEEE754 64 bit (double precision) range.
+     * <pre>
+     *     False for {@link Long}, {@link BigDecimal} and {@link BigInteger} types.
+     *     True for other JavaSE {@link Number} types.
+     * </pre>
+     * @return True if type can be converted to IEEE754 64bit without losing precision. False otherwise.
+     */
+    boolean isIEEE754Compliant();
+
+    /**
      * Returns a JSON text representation of the JSON number. The
      * representation is equivalent to {@link BigDecimal#toString()}.
      *

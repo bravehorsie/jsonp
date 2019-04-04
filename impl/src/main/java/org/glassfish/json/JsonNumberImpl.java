@@ -41,9 +41,7 @@ abstract class JsonNumberImpl implements JsonNumber {
     }
 
     static JsonNumber getJsonNumber(double value) {
-        //bigDecimal = new BigDecimal(value);
-        // This is the preferred way to convert double to BigDecimal
-        return new JsonBigDecimalNumber(BigDecimal.valueOf(value));
+        return new JsonDoubleNumber(value);
     }
 
     static JsonNumber getJsonNumber(BigDecimal value) {
@@ -109,6 +107,11 @@ abstract class JsonNumberImpl implements JsonNumber {
         public String toString() {
             return Integer.toString(num);
         }
+
+        @Override
+        public boolean isIEEE754Compliant() {
+            return true;
+        }
     }
 
     // Optimized JsonNumber impl for long numbers.
@@ -171,6 +174,10 @@ abstract class JsonNumberImpl implements JsonNumber {
             return Long.toString(num);
         }
 
+        @Override
+        public boolean isIEEE754Compliant() {
+            return false;
+        }
     }
 
     // JsonNumber impl using BigDecimal numbers.
@@ -191,6 +198,35 @@ abstract class JsonNumberImpl implements JsonNumber {
             return bigDecimalValue();
         }
 
+        @Override
+        public boolean isIEEE754Compliant() {
+            return false;
+        }
+    }
+    // JsonNumber impl using Double      numbers.
+    private static final class JsonDoubleNumber extends JsonNumberImpl {
+        private final BigDecimal bigDecimal;
+        private final Double value;
+
+        JsonDoubleNumber(Double value) {
+            this.value = value;
+            this.bigDecimal = BigDecimal.valueOf(value);
+        }
+
+        @Override
+        public BigDecimal bigDecimalValue() {
+            return bigDecimal;
+        }
+
+        @Override
+        public Number numberValue() {
+            return value;
+        }
+
+        @Override
+        public boolean isIEEE754Compliant() {
+            return true;
+        }
     }
 
     @Override

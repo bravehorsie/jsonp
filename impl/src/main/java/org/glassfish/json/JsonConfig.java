@@ -17,6 +17,7 @@ package org.glassfish.json;
 
 import org.glassfish.json.api.BufferPool;
 
+import javax.json.NumberStrategy;
 import javax.json.stream.JsonGenerationException;
 import javax.json.stream.JsonGenerator;
 import java.util.Collections;

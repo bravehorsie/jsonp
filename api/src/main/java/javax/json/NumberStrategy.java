@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
-package org.glassfish.json;
+package javax.json;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -37,8 +37,6 @@ import java.math.BigInteger;
  *    - Check the value of {@link Long}, {@link BigDecimal} and {@link BigInteger}, if it is in IEEE754 64bit
  *    range serialize as JSON number, otherwise as JSON string.
  * </pre>
- *
- * TODO: Move to the API.
  *
  */
 public interface NumberStrategy {

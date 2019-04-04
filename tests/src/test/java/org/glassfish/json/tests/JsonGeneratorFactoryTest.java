@@ -17,7 +17,7 @@
 package org.glassfish.json.tests;
 
 import junit.framework.TestCase;
-import org.glassfish.json.NumberStrategy;
+import javax.json.NumberStrategy;
 import org.glassfish.json.api.BufferPool;
 
 import javax.json.*;
